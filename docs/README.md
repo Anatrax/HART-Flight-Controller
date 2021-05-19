@@ -95,7 +95,7 @@ The documentation is built and deployed automatically using a GitHub Actions wor
   ```
 - [recommonmark][recommonmark-install]
   ```bash
-  $ pip3 install recommonmark sphinx-markdown-tables
+  $ pip3 install recommonmark
   ```
 
 If you plan on building LaTeX PDF documentation, you'll also need the following packages:
