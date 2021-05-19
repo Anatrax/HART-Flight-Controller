@@ -11,15 +11,15 @@
 <p align="center">
   <!-- PROJECT LOGO -->
   <a href="https://osuaiaa.com/hart">
-	<img src="https://images.squarespace-cdn.com/content/v1/5a19a459e5dd5b3614fc8595/1518733757123-JZ5199GBQVQOEJBC9VKR/ke17ZwdGBToddI8pDm48kOx9thYkxoPEJMHoJ7vUPbh7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmS0k9nmfOWkBD2X4dgpGrpWVYQT8AbCbINUUJycgJH0K3YOIy-qewO29_jEB_UvA_/HARTlogo.jpg" width="200px" height="auto"/>
+	<img src="./images/HARTlogo.jpg" width="200px" height="auto"/>
   </a>
 
   <!-- PROJECT TITLE -->
-  <h1 align="center">OSU HART Flight Computer</h1>
+  <h1 align="center">OSU HART Flight Computer Documentation</h1>
 
   <p align="center">
     <!-- SHORT PROJECT DESCRIPTION -->
-    The OSU HART Flight Computer is the student-developed flight computer currently under development
+    Documentation for the OSU HART Flight Computer
     <br />
     <!-- LINK TO DOCUMENTATION -->
     <a href="https://hart-avionics.github.io/OSU-HART-Flight-Controller/"><strong>Explore the docs »</strong></a>
@@ -60,30 +60,48 @@ Table of Contents
 About the Project
 ---------------------
 <!-- Description of the project and it's intended purpose or origin story. -->
-The OSU HART Flight Computer is the student-developed flight computer currently under development.
+This is the documentation for the OSU HART Flight Computer, the student-developed flight computer currently under development.
 
-This project is currently under construction.
+The documentation is currently under construction.
 
 <a name="about-the-project-built-with"></a>
 ### Built with
-<!--
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the Acknowledgements section. Here are a few examples:
-- [Sphinx](https://www.sphinx-doc.org/en/master/usage/installation.html) documentation generator
-- [TexLive](https://www.tug.org/texlive/)
--->
+<!-- This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the Acknowledgements section. Here are a few examples. -->
 
-- [EasyEDA][easyeda]
-- 
+- [Sphinx][sphinx-install] documentation generator
+- [TexLive][texlive-docs] typesetting system for formatting the PDF output
 
 <a name="getting-started"></a>
 Getting Started
 ---------------------
 <!-- This is an example of how you may give instructions on setting up your project locally. To get a local copy up and running follow these simple example steps. -->
+The documentation is built and deployed automatically using a GitHub Actions workflow. If you want to build the documentation locally, the easiest way is to use the [OSU HART Project Workspace][workspace], which comes with all the necessary dependencies pre-installed. Optionally, you can install the dependencies yourself with the following commands.
 
 <a name="getting-started-prerequisites"></a>
 ### Prerequisites
 
-- [Bill of Materials (BOM)][bom]
+- [Python PIP][pip-install]
+  ```bash
+  $ sudo apt-get install python3-pip
+  ```
+- [Sphinx][sphinx-install] documentation generator
+  ```bash
+  $ pip3 install -U sphinx
+  ```
+  > Make sure `~/.local/bin` is added to PATH
+- [GNU Make][make-install]
+  ```bash
+  $ sudo apt-get install build-essential
+  ```
+- [recommonmark][recommonmark-install]
+  ```bash
+  $ pip3 install recommonmark
+  ```
+
+If you plan on building LaTeX PDF documentation, you'll also need the following packages:
+```bash
+$ sudo apt-get install texlive-latex-recommended texlive-fonts-recommended texlive-latex-extra latexmk
+```
 
 <a name="getting-started-installing"></a>
 ### Installing
@@ -91,19 +109,34 @@ Getting Started
     ```bash
     $ git clone https://github.com/HART-Avionics/OSU-HART-Flight-Controller.git
     ```
-2. Open [EasyEDA Designer][easyeda-designer]
-3. Create an new schematic in EasyEDA: `File>New>Schematic`
-4. Go to `File>FileSource` and copy & paste in the contents of [`Student_Flight_Board.json`][easyeda-file]
-5. Click `Apply` to apply the changes
-6. `File>Save` the EasyEDA project
 
 <a name="usage"></a>
 Usage
 --------
 <!-- Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.<br> -->
-Once the PCB design has been completed, you can send parts lists and gerber files to JLCPCB by selecting `Fabrication>Parts Order` or `Fabrication>PCB Order` in EasyEDA.
+The manual documentation is written mostly in Markdown, but Sphinx also has it's own default markup format called reStructuredText which can also be used for generating documentation from comments in source code.
 
-![OSU HART Flight Controller Schematic][schematic]
+The Sphinx configuration is set in [`docs/conf.py`][docs-config-file]. For the full list of available options, see [the official documentation][sphinx-config].
+
+Once you're finished making changes, you can build the documentation.
+
+```bash
+$ cd docs
+$ make build
+```
+
+Sphinx will generate both HTML & LaTeX PDF documentation in the `docs/build/` directory.
+
+You can build the HTML and LaTeX PDF documentation individually with
+```bash
+$ make html
+```
+or
+```bash
+$ make latexpdf LATEXMKOPTS="-silent"
+```
+
+*For more examples, please refer to the official [Sphinx documentation][sphinx-docs]*
 
 <a name="roadmap"></a>
 Roadmap
@@ -173,10 +206,14 @@ Acknowledgements
 [issues-url]: https://github.com/HART-Avionics/OSU-HART-Flight-Controller/issues
 [license-shield]: https://img.shields.io/github/license/HART-Avionics/OSU-HART-Flight-Controller
 [license-url]: https://github.com/HART-Avionics/OSU-HART-Flight-Controller/blob/main/LICENSE
-[easyeda]: https://easyeda.com/ "EasyEDA"
-[bom]: ./src/BOM_Student_Flight_Board.csv "Bill of Materials"
-[easyeda-designer]: https://easyeda.com/editor# "EasyEDA Designer"
-[easyeda-file]: ./src/Student_Flight_Board.json "EasyEDA file"
-[schematic]: ./docs/images/Schematic_Student_Flight_Board.png "OSU HART Flight Controller Schematic"
-[license]: ./LICENSE "GNU Public License"
-[donate-url]: https://osuaiaa.com/donate
+[workspace]: https://github.com/HART-Avionics/OSU-HART-Project-Workspace "Containerized Worspace for HART tools"
+[texlive-docs]: https://www.tug.org/texlive/ "TexLive Documentation"
+[pip-install]: https://pip.pypa.io/en/stable/installing/ "Install Python PIP"
+[sphinx-install]: https://www.sphinx-doc.org/en/master/usage/installation.html "Install Sphinx"
+[make-install]: https://www.gnu.org/software/make/manual/make.html "Instal GNU Make"
+[recommonmark-install]: https://github.com/readthedocs/recommonmark "Install recommonmark"
+[docs-config-file]: ./config.py "Documentation configuration file"
+[sphinx-config]: https://www.sphinx-doc.org/en/master/usage/configuration.html "Configuring Sphinx"
+[sphinx-docs]: https://www.sphinx-doc.org/en/master/index.html "Sphinx Documentation"
+[license]:../LICENSE "GNU Public License"
+[donate-url]: https://osuaiaa.com/donate "Donate"
