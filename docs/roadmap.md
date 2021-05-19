@@ -10,6 +10,7 @@ Roadmap
 
 Major Milestones
 -----------------
+
  Stage       |  Date   |                                        Status                                       
 ------------ | ------- | ------------------------------------------------------------------------------------
  Design      |  dd mm  |  <div style="padding:0px 10px;border-radius:5px;background-color:gray">On Hold</div>
